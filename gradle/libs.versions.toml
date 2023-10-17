@@ -10,7 +10,6 @@ compose = "1.5.3"
 coroutines = "1.7.3"
 decompose = "2.1.2"
 flowredux = "1.2.0"
-filepicker = "2.1.0"
 instesx = "0.1.0-alpha10"
 kamel = "0.7.3"
 kodein = "7.20.2"
@@ -51,7 +50,6 @@ coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core"
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-compose = { group = "com.arkivanov.decompose", name = "extensions-compose-jetbrains", version.ref = "decompose" }
-filepicker = { group = "com.darkrockstudios", name = "mpfilepicker", version.ref = "filepicker" }
 flowredux = { group = "com.freeletics.flowredux", name = "flowredux", version.ref = "flowredux" }
 insetsx = { group = "com.moriatsushi.insetsx", name = "insetsx", version.ref = "instesx" }
 kamel = { group = "media.kamel", name = "kamel-image", version.ref = "kamel" }

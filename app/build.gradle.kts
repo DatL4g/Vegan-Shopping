@@ -23,6 +23,7 @@ kotlin {
     androidTarget {
         jvmToolchain(CompileOptions.jvmTargetVersion)
     }
+    ios()
 
     sourceSets {
         val commonMain by getting {
@@ -35,12 +36,10 @@ kotlin {
                 api(compose.ui)
                 api(compose.animation)
                 api(compose.animationGraphics)
-                api(compose.uiTooling)
 
                 api(libs.stdlib)
 
                 api(libs.decompose)
-                api(libs.decompose.compose)
                 api(libs.coroutines)
                 api(libs.kodein)
                 api(libs.kodein.compose)
@@ -50,7 +49,6 @@ kotlin {
 
                 api(libs.kamel)
                 api(libs.napier)
-                api(libs.filepicker)
                 api(libs.moko.resources.compose)
 
                 api(libs.windowsize.multiplatform)
@@ -79,6 +77,7 @@ kotlin {
                 implementation(libs.multidex)
                 implementation(libs.splashscreen)
                 implementation(libs.accompanist.permission)
+                implementation(libs.decompose.compose)
 
                 implementation(libs.mlkit.barcode)
                 implementation(libs.mlkit.language)
@@ -91,6 +90,10 @@ kotlin {
 
                 implementation(libs.ktor.android)
             }
+        }
+
+        val iosMain by getting {
+            dependsOn(commonMain)
         }
     }
 }

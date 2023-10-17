@@ -10,6 +10,7 @@ group = artifact
 
 kotlin {
     androidTarget()
+    ios()
 
     sourceSets {
         val commonMain by getting {
@@ -24,6 +25,10 @@ kotlin {
         }
 
         val androidMain by getting {
+            dependsOn(commonMain)
+        }
+
+        val iosMain by getting {
             dependsOn(commonMain)
         }
     }
