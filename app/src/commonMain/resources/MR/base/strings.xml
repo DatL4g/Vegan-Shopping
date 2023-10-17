@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">Vegan Shopping</string>
+    <string name="camera">Camera</string>
+    <string name="camera_permission_title">Camera Permission</string>
+    <string name="camera_permission_text">This app uses the camera to scan barcodes and ingredients of food products.</string>
+    <string name="camera_permission_text_rational">Seems like you did not grant the camera permission last time.\nIt is required to scan barcodes and ingredients of food products.</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="back">Back</string>
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
+    <string name="start">Start</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_first_text_part_1">Welcome to</string>
+    <string name="welcome_first_text_part_2">, where every bite is a conscious choice.</string>
+    <string name="welcome_first_text_part_3">Discover a world of vegan, vegetarian, and allergen-friendly options at your fingertips.</string>
+    <string name="welcome_second">Family and friends</string>
+    <string name="welcome_second_text_part_1">Create profiles for family and friends, so you can easily respect their vegan, vegetarian, and allergen preferences while shopping.</string>
+    <string name="welcome_third">Cooking together</string>
+    <string name="welcome_third_text_part_1">Simplify your grocery experience with our app, where finding groceries that suit everyone\'s tastes is a breeze.</string>
+    <string name="welcome_third_text_part_2">Shop for items that are delicious and perfect for cooking together.</string>
+    <string name="avatar">Avatar</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="optional">Optional</string>
+    <string name="vegan">Vegan</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="omnivore">Omnivore</string>
+    <string name="food_preference">Food preference</string>
+    <string name="expand">Expand</string>
+</resources>
