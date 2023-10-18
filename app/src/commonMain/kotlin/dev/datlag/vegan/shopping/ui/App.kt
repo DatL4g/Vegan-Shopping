@@ -1,7 +1,6 @@
 package dev.datlag.vegan.shopping.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -15,7 +14,6 @@ import com.arkivanov.essenty.lifecycle.LifecycleOwner
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.moriatsushi.insetsx.ExperimentalSoftwareKeyboardApi
 import com.moriatsushi.insetsx.rememberWindowInsetsController
-import com.moriatsushi.insetsx.safeDrawingPadding
 import dev.datlag.vegan.shopping.ui.theme.*
 import org.kodein.di.DI
 

@@ -2,7 +2,11 @@ package dev.datlag.vegan.shopping.ui.screen.scan
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.slot.*
+import com.arkivanov.decompose.router.slot.ChildSlot
+import com.arkivanov.decompose.router.slot.SlotNavigation
+import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.childSlot
+import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
 import dev.datlag.vegan.shopping.common.ioDispatcher
 import dev.datlag.vegan.shopping.common.launchIO

@@ -2,8 +2,8 @@ package dev.datlag.vegan.shopping.ui.screen.scan
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import dev.datlag.vegan.shopping.ui.custom.permission.CameraPermission

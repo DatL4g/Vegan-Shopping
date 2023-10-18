@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.LifecycleOwner
-import dev.datlag.vegan.shopping.common.lifecycle.repeatOnLifecycle
 import dev.datlag.vegan.shopping.ui.LocalLifecycleOwner
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector

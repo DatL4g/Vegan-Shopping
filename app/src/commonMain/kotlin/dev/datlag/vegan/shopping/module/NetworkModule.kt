@@ -4,7 +4,7 @@ import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.ktorfitBuilder
 import dev.datlag.vegan.shopping.network.OpenFoodFactsAPI
 import dev.datlag.vegan.shopping.network.state.OFFProductStateMachine
-import io.ktor.client.*
+import io.ktor.client.HttpClient
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance

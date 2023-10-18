@@ -1,18 +1,35 @@
 package dev.datlag.vegan.shopping.ui.screen.welcome
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DoubleArrow
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.dp
-import com.moriatsushi.insetsx.*
+import com.moriatsushi.insetsx.ExperimentalSoftwareKeyboardApi
 import com.moriatsushi.insetsx.safeDrawingPadding
 import dev.datlag.vegan.shopping.SharedRes
 import dev.datlag.vegan.shopping.common.launchMain
@@ -23,7 +40,6 @@ import dev.datlag.vegan.shopping.ui.screen.welcome.component.ThirdPage
 import dev.datlag.vegan.shopping.ui.theme.LeftRoundedShape
 import dev.datlag.vegan.shopping.ui.theme.RightRoundedShape
 import dev.icerock.moko.resources.compose.stringResource
-import io.github.aakira.napier.Napier
 
 @OptIn(ExperimentalSoftwareKeyboardApi::class, ExperimentalFoundationApi::class)
 @Composable

@@ -7,7 +7,11 @@ import dev.datlag.vegan.shopping.common.ioDispatcher
 import dev.datlag.vegan.shopping.common.launchIO
 import dev.datlag.vegan.shopping.model.FoodType
 import dev.datlag.vegan.shopping.ui.custom.Avatar
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import org.kodein.di.DI
 
 class CreateProfileScreenComponent(
