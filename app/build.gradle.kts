@@ -4,6 +4,7 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 plugins {
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.android.application)
+    alias(libs.plugins.cocoapods)
     alias(libs.plugins.compose)
     alias(libs.plugins.multiplatform)
     id("kotlin-parcelize") apply false
@@ -24,6 +25,9 @@ kotlin {
         jvmToolchain(CompileOptions.jvmTargetVersion)
     }
     ios()
+    cocoapods {
+
+    }
 
     sourceSets {
         val commonMain by getting {
