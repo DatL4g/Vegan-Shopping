@@ -16,10 +16,11 @@
     <string name="welcome_first_text_part_2">, where every bite is a conscious choice.</string>
     <string name="welcome_first_text_part_3">Discover a world of vegan, vegetarian, and allergen-friendly options at your fingertips.</string>
     <string name="welcome_second">Family and friends</string>
-    <string name="welcome_second_text_part_1">Create profiles for family and friends, so you can easily respect their vegan, vegetarian, and allergen preferences while shopping.</string>
-    <string name="welcome_third">Cooking together</string>
-    <string name="welcome_third_text_part_1">Simplify your grocery experience with our app, where finding groceries that suit everyone\'s tastes is a breeze.</string>
-    <string name="welcome_third_text_part_2">Shop for items that are delicious and perfect for cooking together.</string>
+    <string name="welcome_second_text_part_1">Add profiles of your family and friends, so you can easily respect their vegan, vegetarian, and allergen preferences while shopping.</string>
+    <string name="welcome_second_text_part_2">Shop for items that are delicious and perfect for cooking together.</string>
+    <string name="welcome_third">Privacy</string>
+    <string name="welcome_third_text_part_1">We only ask for the permissions we truly need, and your data stays on your device, never on a server.</string>
+    <string name="welcome_third_text_part_2">Shop with confidence, knowing your information is safe.</string>
     <string name="avatar">Avatar</string>
     <string name="choose_image">Choose Image</string>
     <string name="first_name">First name</string>
@@ -30,4 +31,6 @@
     <string name="omnivore">Omnivore</string>
     <string name="food_preference">Food preference</string>
     <string name="expand">Expand</string>
+    <string name="create">Create</string>
+    <string name="bookmark">Bookmark</string>
 </resources>

@@ -25,9 +25,9 @@ fun ThirdPage(modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val res = if (LocalDarkMode.current) {
-            SharedRes.images.cooking_dark
+            SharedRes.images.privacy_dark
         } else {
-            SharedRes.images.cooking_light
+            SharedRes.images.privacy_light
         }
 
         Image(

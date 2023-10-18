@@ -18,5 +18,6 @@ interface ScanComponent : Component {
     fun showDialog(config: DialogConfig)
     fun dismissDialog()
 
-    fun loadBarcode(barcode: Barcode): Any
+    fun loadBarcode(barcode: Barcode): Any?
+    fun closeProductInfo(delay: Long = 0L): Any?
 }

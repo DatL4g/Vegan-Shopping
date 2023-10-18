@@ -4,7 +4,6 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 plugins {
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.cocoapods)
     alias(libs.plugins.compose)
     alias(libs.plugins.multiplatform)
     id("kotlin-parcelize") apply false
@@ -24,10 +23,6 @@ kotlin {
     androidTarget {
         jvmToolchain(CompileOptions.jvmTargetVersion)
     }
-    ios()
-    cocoapods {
-
-    }
 
     sourceSets {
         val commonMain by getting {
@@ -44,6 +39,7 @@ kotlin {
                 api(libs.stdlib)
 
                 api(libs.decompose)
+                api(libs.decompose.compose)
                 api(libs.coroutines)
                 api(libs.kodein)
                 api(libs.kodein.compose)
@@ -81,7 +77,6 @@ kotlin {
                 implementation(libs.multidex)
                 implementation(libs.splashscreen)
                 implementation(libs.accompanist.permission)
-                implementation(libs.decompose.compose)
 
                 implementation(libs.mlkit.barcode)
                 implementation(libs.mlkit.language)
@@ -94,10 +89,6 @@ kotlin {
 
                 implementation(libs.ktor.android)
             }
-        }
-
-        val iosMain by getting {
-            dependsOn(commonMain)
         }
     }
 }

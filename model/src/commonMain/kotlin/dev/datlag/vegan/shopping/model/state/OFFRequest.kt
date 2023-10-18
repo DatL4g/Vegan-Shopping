@@ -36,4 +36,6 @@ sealed interface OFFAction {
     }
 
     data object Retry : OFFAction
+
+    data object Close : OFFAction
 }

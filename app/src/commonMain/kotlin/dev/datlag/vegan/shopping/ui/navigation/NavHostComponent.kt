@@ -44,7 +44,7 @@ class NavHostComponent private constructor(
                     is ScreenConfig.Profile.Create -> CreateProfileScreenComponent(
                         componentContext,
                         di
-                    )
+                    ) { goToScan(true) }
                 }
             }
         }

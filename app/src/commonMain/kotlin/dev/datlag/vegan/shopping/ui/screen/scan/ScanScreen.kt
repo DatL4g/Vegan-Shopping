@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import dev.datlag.vegan.shopping.ui.custom.permission.CameraPermission
-import dev.datlag.vegan.shopping.ui.screen.scan.component.ProductSheet
+import dev.datlag.vegan.shopping.ui.screen.scan.component.ProductInfo
 
 @Composable
 fun ScanScreen(component: ScanComponent) {
@@ -36,7 +36,7 @@ fun ScanScreen(component: ScanComponent) {
                 )
             }
         )
-        ProductSheet(component)
+        ProductInfo(component)
     }
     dialogState.child?.instance?.render()
 }

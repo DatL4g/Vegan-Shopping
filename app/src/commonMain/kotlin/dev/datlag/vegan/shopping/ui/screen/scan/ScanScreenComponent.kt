@@ -13,6 +13,7 @@ import dev.datlag.vegan.shopping.network.state.OFFProductStateMachine
 import dev.datlag.vegan.shopping.ui.dialog.DialogComponent
 import dev.datlag.vegan.shopping.ui.screen.scan.dialog.camera.CameraPermissionDialogComponent
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import org.kodein.di.DI
@@ -60,5 +61,10 @@ class ScanScreenComponent(
 
     override fun loadBarcode(barcode: Barcode) = launchIO {
         productStateMachine.dispatch(OFFAction.Load(barcode, Locale.ENGLISH.toLanguageTag()))
+    }
+
+    override fun closeProductInfo(delay: Long) = launchIO {
+        delay(delay)
+        productStateMachine.dispatch(OFFAction.Close)
     }
 }

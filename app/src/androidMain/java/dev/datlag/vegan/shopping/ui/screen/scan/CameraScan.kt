@@ -58,17 +58,20 @@ actual fun CameraScan(component: ScanComponent) {
     }
 
     val barcodeOptions = remember(zoomOptions) {
-        BarcodeScannerOptions.Builder().setBarcodeFormats(
-            Barcode.FORMAT_CODABAR,
-            Barcode.FORMAT_CODE_39,
-            Barcode.FORMAT_CODE_93,
-            Barcode.FORMAT_CODE_128,
-            Barcode.FORMAT_EAN_8,
-            Barcode.FORMAT_EAN_13,
-            Barcode.FORMAT_ITF,
-            Barcode.FORMAT_UPC_A,
-            Barcode.FORMAT_UPC_E
-        ).setZoomSuggestionOptions(zoomOptions).build()
+        BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(
+                Barcode.FORMAT_CODABAR,
+                Barcode.FORMAT_CODE_39,
+                Barcode.FORMAT_CODE_93,
+                Barcode.FORMAT_CODE_128,
+                Barcode.FORMAT_EAN_8,
+                Barcode.FORMAT_EAN_13,
+                Barcode.FORMAT_ITF,
+                Barcode.FORMAT_UPC_A,
+                Barcode.FORMAT_UPC_E
+            ).setZoomSuggestionOptions(zoomOptions)
+            .setExecutor(ioDispatcher().asExecutor())
+            .build()
     }
 
     val barcodeScanner = remember(barcodeOptions) {

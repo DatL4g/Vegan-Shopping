@@ -32,6 +32,9 @@ class OFFProductStateMachine(
                         }
                     }
                 }
+                on<OFFAction.Close> { _, state ->
+                    state.override { OFFRequest.WAITING }
+                }
             }
             inState<OFFRequest.Success> {
                 on<OFFAction.Load> { action, state ->
@@ -40,6 +43,9 @@ class OFFProductStateMachine(
                     } else {
                         state.noChange()
                     }
+                }
+                on<OFFAction.Close> { _, state ->
+                    state.override { OFFRequest.WAITING }
                 }
             }
             inState<OFFRequest.Error> {
@@ -52,6 +58,9 @@ class OFFProductStateMachine(
                 }
                 on<OFFAction.Retry> { _, state ->
                     state.override { OFFRequest.Loading(state.snapshot.barcode, state.snapshot.language) }
+                }
+                on<OFFAction.Close> { _, state ->
+                    state.override { OFFRequest.WAITING }
                 }
             }
         }

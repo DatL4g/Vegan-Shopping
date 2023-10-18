@@ -11,7 +11,6 @@ group = artifact
 kotlin {
     jvm()
     androidTarget()
-    ios()
 
     sourceSets {
         val commonMain by getting {
@@ -29,10 +28,6 @@ kotlin {
         val androidMain by getting {
             dependsOn(jvmMain)
             apply(plugin = "kotlin-parcelize")
-        }
-
-        val iosMain by getting {
-            dependsOn(commonMain)
         }
     }
 }

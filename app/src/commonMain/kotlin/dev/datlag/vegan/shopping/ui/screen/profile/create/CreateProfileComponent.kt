@@ -15,7 +15,7 @@ interface CreateProfileComponent : Component {
     val firstName: StateFlow<String>
     val lastName: StateFlow<String>
 
-    val foodType: StateFlow<FoodType?>
+    val foodType: StateFlow<FoodType>
 
     val canCreate: Flow<Boolean>
 

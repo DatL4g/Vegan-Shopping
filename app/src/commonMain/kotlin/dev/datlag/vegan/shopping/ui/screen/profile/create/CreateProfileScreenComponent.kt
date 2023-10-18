@@ -12,7 +12,8 @@ import org.kodein.di.DI
 
 class CreateProfileScreenComponent(
     componentContext: ComponentContext,
-    override val di: DI
+    override val di: DI,
+    private val onFinish: () -> Unit
 ) : CreateProfileComponent, ComponentContext by componentContext {
 
     private val _appAvatar = MutableStateFlow(Avatar.random())
@@ -22,7 +23,7 @@ class CreateProfileScreenComponent(
     private val _firstName = MutableStateFlow(String())
     private val _lastName = MutableStateFlow(String())
 
-    private val _foodType = MutableStateFlow<FoodType?>(null)
+    private val _foodType = MutableStateFlow<FoodType>(FoodType.VEGETARIAN)
 
     override val appAvatar: StateFlow<Avatar> = _appAvatar
     override val otherAvatar: StateFlow<ImageBitmap?> = _otherAvatar
@@ -31,10 +32,10 @@ class CreateProfileScreenComponent(
     override val firstName: StateFlow<String> = _firstName
     override val lastName: StateFlow<String> = _lastName
 
-    override val foodType: StateFlow<FoodType?> = _foodType
+    override val foodType: StateFlow<FoodType> = _foodType
 
-    override val canCreate: Flow<Boolean> = combine(firstName, foodType) { name, type ->
-        name.isNotBlank() && type != null
+    override val canCreate: Flow<Boolean> = combine(firstName, foodType) { name, _ ->
+        name.isNotBlank()
     }.flowOn(ioDispatcher())
 
     @Composable
@@ -65,6 +66,6 @@ class CreateProfileScreenComponent(
     }
 
     override fun create() {
-
+        onFinish()
     }
 }
