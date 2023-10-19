@@ -10,9 +10,14 @@ sealed interface OFFRequest {
 
     data class Loading(
         val barcode: String,
-        val language: String
+        val language: String,
+        val previousProduct: Product?
     ) : OFFRequest {
-        constructor(barcode: Barcode, language: String) : this(barcode.data, language)
+        constructor(
+            barcode: Barcode,
+            language: String,
+            previousProduct: Product?,
+        ) : this(barcode.data, language, previousProduct)
     }
 
     data class Success(
@@ -23,6 +28,7 @@ sealed interface OFFRequest {
     data class Error(
         val barcode: String,
         val language: String,
+        val previousProduct: Product?,
         val msg: String
     ) : OFFRequest
 }

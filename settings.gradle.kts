@@ -3,6 +3,7 @@ rootProject.name = "Vegan Shopping"
 include("app")
 include("model")
 include("network")
+include("datastore", "datastore:proto")
 
 pluginManagement {
     repositories {

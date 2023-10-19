@@ -8,8 +8,10 @@ appcompat = "1.6.1"
 camerax = "1.4.0-alpha01"
 compose = "1.5.3"
 coroutines = "1.7.3"
+datastore = "1.0.0"
 decompose = "2.1.2"
 flowredux = "1.2.0"
+grpc = "1.58.0"
 instesx = "0.1.0-alpha10"
 kamel = "0.7.3"
 kodein = "7.20.2"
@@ -27,6 +29,8 @@ moko-resources = "0.23.0"
 multidex = "2.0.1"
 napier = "2.6.1"
 parcelable = "1.2.0"
+protobuf = "0.9.4"
+protoc = "3.24.4"
 serialization-json = "1.6.0"
 splashscreen = "1.0.1"
 versions = "0.49.0"
@@ -48,9 +52,12 @@ camerax-view = { group = "androidx.camera", name = "camera-view", version.ref = 
 compose-ui-util = { group = "org.jetbrains.compose.ui", name = "ui-util", version.ref = "compose" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+datastore = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastore" }
+datastore-android = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-compose = { group = "com.arkivanov.decompose", name = "extensions-compose-jetbrains", version.ref = "decompose" }
 flowredux = { group = "com.freeletics.flowredux", name = "flowredux", version.ref = "flowredux" }
+grpc = { group = "io.grpc", name = "grpc-protobuf", version.ref = "grpc" }
 insetsx = { group = "com.moriatsushi.insetsx", name = "insetsx", version.ref = "instesx" }
 kamel = { group = "media.kamel", name = "kamel-image", version.ref = "kamel" }
 kodein = { group = "org.kodein.di", name = "kodein-di", version.ref = "kodein" }
@@ -70,6 +77,8 @@ moko-resources-generator = { group = "dev.icerock.moko", name = "resources-gener
 multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 napier = { group = "io.github.aakira", name = "napier", version.ref = "napier" }
 parcelable = { group = "com.arkivanov.essenty", name = "parcelable", version.ref = "parcelable" }
+protobuf = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protoc" }
+protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protoc" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-json" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
@@ -88,5 +97,6 @@ ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 moko-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 parcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
