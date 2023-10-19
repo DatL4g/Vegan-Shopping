@@ -1,5 +1,6 @@
 package dev.datlag.vegan.shopping.model
 
+import com.arkivanov.essenty.parcelable.IgnoredOnParcel
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import dev.datlag.vegan.shopping.model.common.setFrom
@@ -9,7 +10,7 @@ sealed class FoodType : Parcelable {
 
     @Parcelize
     data object VEGAN : FoodType(), Parcelable {
-
+        @IgnoredOnParcel
         override val allergies: Set<Allergy> = setFrom(
             super.allergies, setOf(
                 Allergy.PEANUT,
@@ -22,6 +23,7 @@ sealed class FoodType : Parcelable {
 
     @Parcelize
     data object VEGETARIAN : FoodType(), Parcelable {
+        @IgnoredOnParcel
         override val allergies: Set<Allergy> = setFrom(
             super.allergies, VEGAN.allergies, setOf(
                 Allergy.COW_MILK,
@@ -32,6 +34,7 @@ sealed class FoodType : Parcelable {
 
     @Parcelize
     data object OMNIVORE : FoodType(), Parcelable {
+        @IgnoredOnParcel
         override val allergies: Set<Allergy> = setFrom(
             super.allergies, VEGAN.allergies, VEGETARIAN.allergies, setOf(
                 Allergy.FISH,
@@ -40,5 +43,6 @@ sealed class FoodType : Parcelable {
         )
     }
 
+    @IgnoredOnParcel
     open val allergies: Set<Allergy> = emptySet()
 }
