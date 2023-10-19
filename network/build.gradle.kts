@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.ktorfit) apply false
 }
 
 val artifact = "dev.datlag.vegan.shopping.network"
@@ -20,6 +21,20 @@ kotlin {
 
                 api(libs.ktorfit)
                 api(project(":model"))
+            }
+        }
+        val commonTest by getting {
+            apply(plugin = libs.plugins.ktorfit.get().pluginId)
+            dependencies {
+                implementation(libs.ktor.cio)
+                implementation(libs.test)
+                implementation(libs.turbine)
+                implementation(libs.ktor.content.negotiation)
+                implementation(libs.ktor.serialization.json)
+                implementation(libs.coroutines.test)
+
+                implementation(libs.ktorfit)
+                implementation(project(":model"))
             }
         }
 

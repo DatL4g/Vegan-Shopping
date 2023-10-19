@@ -1,0 +1,33 @@
+name: Unit Testing
+on:
+  push:
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Test network module
+        run: ./gradlew network:test
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: |
+            network/build/test-results/**/*xml

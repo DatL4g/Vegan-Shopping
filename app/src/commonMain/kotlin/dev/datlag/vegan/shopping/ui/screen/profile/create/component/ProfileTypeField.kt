@@ -3,20 +3,17 @@ package dev.datlag.vegan.shopping.ui.screen.profile.create.component
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Restaurant
-import androidx.compose.material.icons.filled.SetMeal
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.datlag.vegan.shopping.SharedRes
+import dev.datlag.vegan.shopping.common.foodTypeDisplayIcon
+import dev.datlag.vegan.shopping.common.foodTypeDisplayText
 import dev.datlag.vegan.shopping.common.lifecycle.collectAsStateWithLifecycle
 import dev.datlag.vegan.shopping.model.FoodType
 import dev.datlag.vegan.shopping.ui.screen.profile.create.CreateProfileComponent
-import dev.datlag.vegan.shopping.ui.theme.MaterialSymbols
-import dev.icerock.moko.resources.compose.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,12 +51,12 @@ fun ProfileTypeField(component: CreateProfileComponent) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Icon(
-                        imageVector = displayIcon(selectedOption),
-                        contentDescription = displayText(selectedOption),
+                        imageVector = foodTypeDisplayIcon(selectedOption),
+                        contentDescription = foodTypeDisplayText(selectedOption),
                         modifier = Modifier.size(24.dp)
                     )
                     Text(
-                        text = displayText(selectedOption),
+                        text = foodTypeDisplayText(selectedOption),
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -73,24 +70,6 @@ fun ProfileTypeField(component: CreateProfileComponent) {
                 valueRange = 0F..2F
             )
         }
-    }
-}
-
-@Composable
-private fun displayText(type: FoodType): String {
-    return when (type) {
-        is FoodType.VEGAN -> stringResource(SharedRes.strings.vegan)
-        is FoodType.VEGETARIAN -> stringResource(SharedRes.strings.vegetarian)
-        is FoodType.OMNIVORE -> stringResource(SharedRes.strings.omnivore)
-    }
-}
-
-@Composable
-private fun displayIcon(type: FoodType): ImageVector {
-    return when (type) {
-        is FoodType.VEGAN -> MaterialSymbols.rememberNestEcoLeaf()
-        is FoodType.VEGETARIAN -> MaterialSymbols.rememberTempPreferencesEco()
-        is FoodType.OMNIVORE -> Icons.Default.SetMeal
     }
 }
 
