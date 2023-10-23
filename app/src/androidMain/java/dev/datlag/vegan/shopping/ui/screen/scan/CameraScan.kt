@@ -25,17 +25,30 @@ actual fun CameraScan(component: ScanComponent) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val previewView = remember(context) { PreviewView(context) }
-    val cameraSelector = remember {
-        CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
-    }
-    val cameraController = remember(context) { LifecycleCameraController(context) }
+    val cameraController = remember { LifecycleCameraController(context) }
+
+    AndroidView(
+        factory = {
+            val previewView = PreviewView(context)
+            val cameraSelector = CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build()
+            cameraController.cameraSelector = cameraSelector
+            cameraController.bindToLifecycle(lifecycleOwner)
+            previewView.controller = cameraController
+
+            previewView
+        },
+        modifier = Modifier.fillMaxSize()
+    )
+
+    val zoomState = cameraController.cameraInfo?.zoomState?.observeValue(null)
     val zoomCallback = remember(cameraController) {
         ZoomSuggestionOptions.ZoomCallback {
+            cameraController.setZoomRatio(it)
             true
         }
     }
-    val zoomState = cameraController.cameraInfo?.zoomState?.observeValue(null)
     val zoomOptions = remember(zoomCallback, zoomState) {
         val builder = ZoomSuggestionOptions.Builder(zoomCallback)
         val zoomMaxRatio = zoomState?.maxZoomRatio
@@ -43,18 +56,6 @@ actual fun CameraScan(component: ScanComponent) {
             builder.setMaxSupportedZoomRatio(zoomMaxRatio)
         }
         builder.build()
-    }
-
-    LaunchedEffect(cameraController) {
-        cameraController.bindToLifecycle(lifecycleOwner)
-    }
-
-    LaunchedEffect(cameraController, cameraSelector) {
-        cameraController.cameraSelector = cameraSelector
-    }
-
-    LaunchedEffect(cameraController, previewView) {
-        previewView.controller = cameraController
     }
 
     val barcodeOptions = remember(zoomOptions) {
@@ -77,13 +78,6 @@ actual fun CameraScan(component: ScanComponent) {
     val barcodeScanner = remember(barcodeOptions) {
         BarcodeScanning.getClient(barcodeOptions)
     }
-
-    AndroidView(
-        factory = {
-            previewView
-        },
-        modifier = Modifier.fillMaxSize()
-    )
 
     LaunchedEffect(cameraController) {
         cameraController.setImageAnalysisAnalyzer(
