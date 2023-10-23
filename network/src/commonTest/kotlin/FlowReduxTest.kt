@@ -108,4 +108,93 @@ class FlowReduxTest {
             assertNotNull(loadingItem.previousProduct) { "Switched to new Loading state but the previous product is null" }
         }
     }
+
+    @Test
+    fun `move from Success to Loading then Error state with info about previous Product`() = runTest {
+        val stateMachine = OFFProductStateMachine(KtorfitTest.createOpenFoodFactsApi())
+        val barcode = "4037400344294"
+        val barcode2 = ""
+        assert(barcode2.isEmpty()) { "Barcode 2 is not empty, can't reach error state" }
+        val language = "en"
+        stateMachine.state.test {
+            assertEquals(OFFRequest.WAITING, awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            assertEquals(OFFRequest.Loading(
+                barcode = barcode,
+                language = language,
+                previousProduct = null
+            ), awaitItem())
+            assertIs<OFFRequest.Success>(awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode2, language = language))
+            val loadingItem = awaitItem()
+            assertIs<OFFRequest.Loading>(loadingItem)
+            assertNotNull(loadingItem.previousProduct) { "Switched to new Loading state but the previous product is null" }
+            val errorItem = awaitItem()
+            assertIs<OFFRequest.Error>(errorItem)
+            assertNotNull(errorItem.previousProduct) { "Switched to Error state but the previous product is null" }
+        }
+    }
+
+    @Test
+    fun `stay on Success state after calling Load with same barcode`() = runTest {
+        val stateMachine = OFFProductStateMachine(KtorfitTest.createOpenFoodFactsApi())
+        val barcode = "4037400344294"
+        val language = "en"
+        stateMachine.state.test {
+            assertEquals(OFFRequest.WAITING, awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            assertEquals(OFFRequest.Loading(
+                barcode = barcode,
+                language = language,
+                previousProduct = null
+            ), awaitItem())
+            assertIs<OFFRequest.Success>(awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            ensureAllEventsConsumed()
+        }
+    }
+
+    @Test
+    fun `stay on Error state after calling Load with same barcode`() = runTest {
+        val stateMachine = OFFProductStateMachine(KtorfitTest.createOpenFoodFactsApi())
+        val barcode = ""
+        assert(barcode.isEmpty()) { "Barcode is not empty, can't reach error state" }
+        val language = "en"
+        stateMachine.state.test {
+            assertEquals(OFFRequest.WAITING, awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            assertEquals(OFFRequest.Loading(
+                barcode = barcode,
+                language = language,
+                previousProduct = null
+            ), awaitItem())
+            assertIs<OFFRequest.Error>(awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            ensureAllEventsConsumed()
+        }
+    }
+
+    @Test
+    fun `move from Error to Loading state after calling Retry`() = runTest {
+        val stateMachine = OFFProductStateMachine(KtorfitTest.createOpenFoodFactsApi())
+        val barcode = ""
+        assert(barcode.isEmpty()) { "Barcode is not empty, can't reach error state" }
+        val language = "en"
+        stateMachine.state.test {
+            assertEquals(OFFRequest.WAITING, awaitItem())
+            stateMachine.dispatch(OFFAction.Load(barcode = barcode, language = language))
+            assertEquals(OFFRequest.Loading(
+                barcode = barcode,
+                language = language,
+                previousProduct = null
+            ), awaitItem())
+            assertIs<OFFRequest.Error>(awaitItem())
+            stateMachine.dispatch(OFFAction.Retry)
+            assertEquals(OFFRequest.Loading(
+                barcode = barcode,
+                language = language,
+                previousProduct = null
+            ), awaitItem())
+        }
+    }
 }
