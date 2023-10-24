@@ -113,7 +113,7 @@ private fun containerColor(productType: Ingredient.Type, isDark: Boolean = Local
     return if (productType.isOmnivore) {
         omnivoreContainerColor(isDark)
     } else if (productType.isUnknown) {
-        unknownContainerColor(isDark)
+        unknownContainerColor()
     } else {
         null
     }
@@ -124,7 +124,7 @@ private fun contentColor(productType: Ingredient.Type, isDark: Boolean = LocalDa
     return if (productType.isOmnivore) {
         omnivoreContentColor(isDark)
     } else if (productType.isUnknown) {
-        unknownContentColor(isDark)
+        unknownContentColor()
     } else {
         null
     }
@@ -135,7 +135,7 @@ private fun onContentColor(productType: Ingredient.Type, isDark: Boolean = Local
     return if (productType.isOmnivore) {
         omnivoreOnContentColor(isDark)
     } else if (productType.isUnknown) {
-        unknownOnContentColor(isDark)
+        unknownOnContentColor()
     } else {
         null
     }
@@ -169,28 +169,16 @@ private fun omnivoreOnContentColor(isDark: Boolean = LocalDarkMode.current): Col
 }
 
 @Composable
-private fun unknownContainerColor(isDark: Boolean = LocalDarkMode.current): Color {
-    return if (isDark) {
-        MaterialTheme.colorScheme.onTertiaryContainer
-    } else {
-        MaterialTheme.colorScheme.tertiaryContainer
-    }
+private fun unknownContainerColor(): Color {
+    return MaterialTheme.colorScheme.background
 }
 
 @Composable
-private fun unknownContentColor(isDark: Boolean = LocalDarkMode.current): Color {
-    return if (isDark) {
-        MaterialTheme.colorScheme.tertiaryContainer
-    } else {
-        MaterialTheme.colorScheme.onTertiaryContainer
-    }
+private fun unknownContentColor(): Color {
+    return MaterialTheme.colorScheme.onBackground
 }
 
 @Composable
-private fun unknownOnContentColor(isDark: Boolean = LocalDarkMode.current): Color {
-    return if (isDark) {
-        MaterialTheme.colorScheme.onTertiaryContainer
-    } else {
-        MaterialTheme.colorScheme.tertiaryContainer
-    }
+private fun unknownOnContentColor(): Color {
+    return MaterialTheme.colorScheme.background
 }
