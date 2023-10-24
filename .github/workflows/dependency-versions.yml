@@ -31,6 +31,8 @@ jobs:
         run: echo "summary=$(cat build/dependencyUpdates/report.md)" >> $GITHUB_OUTPUT
 
       - name: Publish version results
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh api -X POST -H "Accept: application/vnd.github+json" \
           -f 'name: Version Results' \
