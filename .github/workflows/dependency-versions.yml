@@ -37,6 +37,6 @@ jobs:
           -f 'head_sha=${{ github.event.pull_request.head.sha }}' \
           -f 'status=completed' \
           -f 'conclusion=neutral' \
-          -f 'output[title]=${{ github.event.repository.updated_at }}'
-          -f 'output[summary]=${{ steps.dependencyVersion.outputs.summary }}'
+          -f 'output[title]=${{ github.event.repository.updated_at }}' \
+          -f 'output[summary]=${{ steps.dependencyVersion.outputs.summary }}' \
           /repos/${{ github.repository }}/check-runs
