@@ -3,8 +3,12 @@ on:
   push:
 
 jobs:
-  unit-test:
+  dependency-versions:
     runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -27,4 +31,4 @@ jobs:
         with:
           name: Version Results
           title: ${{ github.event.repository.updated_at }}
-          body-file: /build/dependencyUpdates/report.md
+          body-file: build/dependencyUpdates/report.md
