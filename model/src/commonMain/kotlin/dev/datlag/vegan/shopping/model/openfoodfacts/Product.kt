@@ -1,6 +1,5 @@
 package dev.datlag.vegan.shopping.model.openfoodfacts
 
-import dev.datlag.vegan.shopping.model.FoodType
 import dev.datlag.vegan.shopping.model.common.contains
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -49,12 +48,14 @@ data class Product(
         }
     }
 
+    @Transient
     private val hasVeganKeywords = run {
         val veganLabel = keywords.contains("vegan", true)
         val veganEULabel = keywords.contains("european-vegetarian-union-vegan", true)
         return@run veganLabel || veganEULabel
     }
 
+    @Transient
     private val hasVegetarianKeywords = run {
         val vegetarianLabel = keywords.contains("vegetarian", true)
         val vegetarianEULabel1 = keywords.contains("european-vegetarian-union", true)
@@ -68,28 +69,18 @@ data class Product(
                 || vegetarianUnionLabel2
     }
 
-    val isVegan = run {
-        val hasIngredients = ingredients.isNotEmpty()
-        val isFullyVegan = ingredients.all { it.isVegan() }
-        return@run hasIngredients && (isFullyVegan || run {
-            ingredients.all { it.isPossiblyVegan() } && hasVeganKeywords
-        })
-    }
-    val isVegetarian = run {
-        val hasIngredients = ingredients.isNotEmpty()
-        val isFullyVegetarian = ingredients.all { it.isVegetarian() }
-        return@run hasIngredients && (isFullyVegetarian || run {
-            ingredients.all { it.isPossiblyVegetarian() } && hasVegetarianKeywords
-        })
-    }
-
-    val isPossiblyVegan = ingredients.isNotEmpty() && ingredients.all { it.isPossiblyVegan() }
-    val isPossiblyVegetarian = ingredients.isNotEmpty() && ingredients.all { it.isPossiblyVegetarian() }
-
     @Transient
-    val foodType = when {
-        isVegan -> FoodType.VEGAN
-        isVegetarian -> FoodType.VEGETARIAN
-        else -> FoodType.OMNIVORE
+    val type: Ingredient.Type = run {
+        if (hasVeganKeywords) {
+            Ingredient.Type.VEGAN(maybe = false, Ingredient.Type.VEGETARIAN(maybe = false))
+        } else if (hasVegetarianKeywords) {
+            Ingredient.Type.VEGETARIAN(maybe = false)
+        } else {
+            if (ingredients.isEmpty()) {
+                Ingredient.Type.UNKNOWN
+            } else {
+                Ingredient.Type.mapFrom(null, null, ingredients.map { it.type })
+            }
+        }
     }
 }

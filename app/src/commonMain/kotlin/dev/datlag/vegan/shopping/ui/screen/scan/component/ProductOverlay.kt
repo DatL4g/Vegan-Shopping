@@ -35,7 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import com.moriatsushi.insetsx.safeDrawingPadding
 import dev.datlag.vegan.shopping.SharedRes
+import dev.datlag.vegan.shopping.common.foodTypeDisplayIcon
+import dev.datlag.vegan.shopping.common.foodTypeDisplayText
+import dev.datlag.vegan.shopping.common.ingredientTypeDisplayIcon
+import dev.datlag.vegan.shopping.common.ingredientTypeDisplayText
+import dev.datlag.vegan.shopping.common.ingredientTypeIsGreen
+import dev.datlag.vegan.shopping.common.ingredientTypeIsRed
 import dev.datlag.vegan.shopping.common.onClick
+import dev.datlag.vegan.shopping.common.rememberComposable
+import dev.datlag.vegan.shopping.model.FoodType
 import dev.datlag.vegan.shopping.model.openfoodfacts.Product
 import dev.datlag.vegan.shopping.ui.theme.CutOutShape
 import dev.icerock.moko.resources.compose.stringResource
@@ -64,7 +72,7 @@ fun ProductOverlay(
         Box(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
             val cutoutPadding = 16.dp
             val cutoutRadius = 16.dp
-            val cutoutContainerColor = MaterialTheme.colorScheme.background.copy(alpha = 0.9F)
+            val cutoutContainerColor = MaterialTheme.colorScheme.background.copy(alpha = 0.75F)
             val cutoutContainerContentColor = MaterialTheme.colorScheme.onBackground
             val cutoutContainerShape = RoundedCornerShape(cutoutRadius)
 
@@ -151,7 +159,8 @@ fun ProductOverlay(
 
                     Column(
                         verticalArrangement = Arrangement.spacedBy(2.dp),
-                        horizontalAlignment = Alignment.Start
+                        horizontalAlignment = Alignment.Start,
+                        modifier = Modifier.weight(1F)
                     ) {
                         Text(
                             text = product.productNameAndLanguage.first,
@@ -161,6 +170,41 @@ fun ProductOverlay(
                         )
                         Text(
                             text = product.brands.joinToString(),
+                            maxLines = 1
+                        )
+                    }
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        val (containerColor, contentColor) = if (ingredientTypeIsGreen(product.type)) {
+                            MaterialTheme.colorScheme.secondary to MaterialTheme.colorScheme.onSecondary
+                        } else {
+                            if (ingredientTypeIsRed(product.type)) {
+                                MaterialTheme.colorScheme.error to MaterialTheme.colorScheme.onError
+                            } else {
+                                cutoutContainerContentColor to cutoutContainerColor.copy(alpha = 1F)
+                            }
+                        }
+                        Surface(
+                            shape = cutoutContainerShape,
+                            color = containerColor,
+                            contentColor = contentColor,
+                            modifier = Modifier
+                                .size(min(ButtonDefaults.MinWidth, ButtonDefaults.MinHeight))
+                                .clip(cutoutContainerShape)
+                        ) {
+                            Icon(
+                                imageVector = ingredientTypeDisplayIcon(product.type),
+                                contentDescription = ingredientTypeDisplayText(product.type),
+                                modifier = Modifier.padding(8.dp).size(24.dp),
+                                tint = contentColor
+                            )
+                        }
+                        Text(
+                            text = ingredientTypeDisplayText(product.type),
+                            fontWeight = FontWeight.Medium,
+                            color = containerColor,
                             maxLines = 1
                         )
                     }

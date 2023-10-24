@@ -20,61 +20,11 @@ import dev.datlag.vegan.shopping.model.openfoodfacts.Product
 
 @Composable
 fun ProductDetails(product: Product) {
-    val type = remember(product) { product.foodType }
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        if (type !is FoodType.OMNIVORE) {
-            Icon(
-                imageVector = foodTypeDisplayIcon(type),
-                contentDescription = foodTypeDisplayText(type),
-                modifier = Modifier.size(36.dp)
-            )
-            Text(
-                text = foodTypeDisplayText(type),
-                fontWeight = FontWeight.SemiBold
-            )
-        } else {
-            when {
-                product.isPossiblyVegan -> {
-                    Icon(
-                        imageVector = foodTypeDisplayIcon(FoodType.VEGAN),
-                        contentDescription = foodTypeDisplayText(FoodType.VEGAN),
-                        modifier = Modifier.size(36.dp),
-                        tint = Color.Yellow
-                    )
-                    Text(
-                        text = "Possibly" + foodTypeDisplayText(FoodType.VEGAN),
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-                product.isPossiblyVegetarian -> {
-                    Icon(
-                        imageVector = foodTypeDisplayIcon(FoodType.VEGETARIAN),
-                        contentDescription = foodTypeDisplayText(FoodType.VEGETARIAN),
-                        modifier = Modifier.size(36.dp),
-                        tint = Color.Yellow
-                    )
-                    Text(
-                        text = "Possibly" + foodTypeDisplayText(FoodType.VEGETARIAN),
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-                else -> {
-                    Icon(
-                        imageVector = foodTypeDisplayIcon(type),
-                        contentDescription = foodTypeDisplayText(type),
-                        modifier = Modifier.size(36.dp)
-                    )
-                    Text(
-                        text = foodTypeDisplayText(type),
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            }
-        }
+        Text(text = "Details")
     }
 }
