@@ -32,14 +32,10 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Publish version results
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api -X POST -H "Accept: application/vnd.github+json" \
-          -f 'name=Version Results' \
-          -f 'head_sha=${{ github.event.pull_request.head.sha || github.sha }}' \
-          -f 'status=completed' \
-          -f 'conclusion=neutral' \
-          -f 'output[title]=${{ github.event.repository.updated_at }}' \
-          -f 'output[summary]=${{ steps.dependencyVersion.outputs.summary }}' \
-          /repos/${{ github.repository }}/check-runs
+        uses: LouisBrunner/checks-action@v1.6.1
+        with:
+          token: ${{ github.token }}
+          name: Version Results
+          conclusion: ${{ job.status }}
+          output: |
+            {"title":"${{ github.event.repository.updated_at }}", "summary":"${{ steps.dependencyVersion.outputs.summary }}"}
