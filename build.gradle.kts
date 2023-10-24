@@ -70,8 +70,12 @@ tasks.withType<DependencyUpdatesTask> {
                 append('|')
                 appendLine()
                 append('|')
-                repeat(4) {
+                repeat(2) {
                     append("---")
+                    append('|')
+                }
+                repeat(2) {
+                    append(":-:")
                     append('|')
                 }
                 updatable.forEach { dependency ->
