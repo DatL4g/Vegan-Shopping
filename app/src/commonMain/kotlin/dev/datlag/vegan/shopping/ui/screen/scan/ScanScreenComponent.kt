@@ -16,7 +16,9 @@ import dev.datlag.vegan.shopping.model.state.OFFRequest
 import dev.datlag.vegan.shopping.network.state.OFFProductStateMachine
 import dev.datlag.vegan.shopping.ui.dialog.DialogComponent
 import dev.datlag.vegan.shopping.ui.screen.scan.dialog.camera.CameraPermissionDialogComponent
+import dev.datlag.vegan.shopping.ui.screen.scan.dialog.product.type.ProductTypeDialogComponent
 import io.github.aakira.napier.Napier
+import io.ktor.util.reflect.instanceOf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -41,6 +43,12 @@ class ScanScreenComponent(
                 di = di,
                 onDismissed = dialogNavigation::dismiss
             ) as DialogComponent
+            is DialogConfig.ProductType -> ProductTypeDialogComponent(
+                componentContext = slotContext,
+                product = config.product,
+                di = di,
+                onDismissed = dialogNavigation::dismiss
+            )
         }
     }
     override val dialog: Value<ChildSlot<DialogConfig, DialogComponent>> = _dialog
@@ -61,6 +69,16 @@ class ScanScreenComponent(
 
     override fun dismissDialog() {
         dialogNavigation.dismiss()
+    }
+
+    override fun dismissCameraPermissionDialog() {
+        val isCameraInstance = dialog.value.child?.configuration is DialogConfig.CameraPermission
+                || _dialog.value.child?.configuration is DialogConfig.CameraPermission
+                || dialog.value.child?.configuration?.instanceOf(DialogConfig.CameraPermission::class) == true
+                || _dialog.value.child?.configuration?.instanceOf(DialogConfig.CameraPermission::class) == true
+        if (isCameraInstance) {
+            dismissDialog()
+        }
     }
 
     override fun loadBarcode(barcode: Barcode) = launchIO {

@@ -44,11 +44,3 @@ fun ingredientTypeDisplayIcon(type: Ingredient.Type): ImageVector {
         }
     }
 }
-
-fun ingredientTypeIsGreen(type: Ingredient.Type): Boolean {
-    return type is Ingredient.Type.VEGAN || type is Ingredient.Type.VEGETARIAN
-}
-
-fun ingredientTypeIsRed(type: Ingredient.Type): Boolean {
-    return type is Ingredient.Type.OMNIVORE
-}

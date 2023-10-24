@@ -22,7 +22,7 @@ fun ScanScreen(component: ScanComponent) {
     ) {
         CameraPermission(
             onGranted = {
-                component.dismissDialog()
+                component.dismissCameraPermissionDialog()
                 CameraScan(component)
             },
             onShowInfo = { state ->

@@ -1,22 +1,84 @@
 package dev.datlag.vegan.shopping.model.openfoodfacts
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
+import dev.datlag.vegan.shopping.model.common.setFrom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
+@Parcelize
 @Serializable
 data class Ingredient(
+    @SerialName("id") val id: String,
     @SerialName("vegan") val veganString: String? = null,
     @SerialName("vegetarian") val vegetarianString: String? = null,
+    @SerialName("text") val text: String? = id,
     @SerialName("ingredients") val ingredients: List<Ingredient> = emptyList()
-) {
+) : Parcelable {
 
+    @Transient
     val type: Type = Type.mapFrom(veganString, vegetarianString, ingredients.map { it.type })
 
-    sealed interface Type {
-        data class VEGAN(val maybe: Boolean, val vegetarianType: VEGETARIAN) : Type
-        data class VEGETARIAN(val maybe: Boolean) : Type
-        data object OMNIVORE : Type
-        data object UNKNOWN : Type
+    @Transient
+    val allIngredients: Set<Ingredient> = run {
+        setFrom(listOf(this), ingredients.flatMap { it.allIngredients })
+    }
+
+    @Parcelize
+    sealed interface Type : Parcelable {
+
+        @Parcelize
+        data class VEGAN(val maybe: Boolean, val vegetarianType: VEGETARIAN) : Type, Parcelable
+
+        @Parcelize
+        data class VEGETARIAN(val maybe: Boolean) : Type, Parcelable
+
+        @Parcelize
+        data object OMNIVORE : Type, Parcelable
+
+        @Parcelize
+        data object UNKNOWN : Type, Parcelable
+
+        val isVeganOrVegetarian: Boolean
+            get() = this is VEGAN || this is VEGETARIAN
+
+        val isOmnivore: Boolean
+            get() = this is OMNIVORE
+
+        val isUnknown: Boolean
+            get() = this is UNKNOWN
+
+        val grouping: GROUPING
+            get() = when (this) {
+                is VEGAN -> GROUPING.VEGAN
+                is VEGETARIAN -> GROUPING.VEGETARIAN
+                is OMNIVORE -> GROUPING.OMNIVORE
+                is UNKNOWN -> GROUPING.UNKNOWN
+            }
+
+        @Parcelize
+        sealed interface GROUPING : Parcelable {
+
+            @Parcelize
+            data object VEGAN : GROUPING, Parcelable
+
+            @Parcelize
+            data object VEGETARIAN : GROUPING, Parcelable
+
+            @Parcelize
+            data object OMNIVORE : GROUPING, Parcelable
+
+            @Parcelize
+            data object UNKNOWN : GROUPING, Parcelable
+
+            fun toDefaultType(): Type = when (this) {
+                is VEGAN -> VEGAN(maybe = false, vegetarianType = VEGETARIAN(maybe = false))
+                is VEGETARIAN -> VEGETARIAN(maybe = false)
+                is OMNIVORE -> Type.OMNIVORE
+                is UNKNOWN -> Type.UNKNOWN
+            }
+        }
 
         companion object {
             fun mapFrom(vegan: String?, vegetarian: String?, other: Collection<Type>): Type {

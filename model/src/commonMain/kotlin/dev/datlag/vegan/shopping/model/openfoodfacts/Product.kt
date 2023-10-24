@@ -1,10 +1,15 @@
 package dev.datlag.vegan.shopping.model.openfoodfacts
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import dev.datlag.vegan.shopping.model.common.contains
+import dev.datlag.vegan.shopping.model.common.listFrom
+import dev.datlag.vegan.shopping.model.common.setFrom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
+@Parcelize
 @Serializable
 data class Product(
     @SerialName("abbreviated_product_name") val abbreviatedProductName: String? = null,
@@ -24,7 +29,7 @@ data class Product(
     @SerialName("image_url") val imageUrl: String? = null,
     @SerialName("ingredients") val ingredients: List<Ingredient> = emptyList(),
     @SerialName("_keywords") val keywords: List<String> = emptyList() // ToDo("add labels for vegan checking")
-) {
+) : Parcelable {
     val languageCode: String?
         get() = lang?.ifBlank { null } ?: lc?.ifBlank { null }
 
@@ -82,5 +87,10 @@ data class Product(
                 Ingredient.Type.mapFrom(null, null, ingredients.map { it.type })
             }
         }
+    }
+
+    @Transient
+    val allIngredients: Set<Ingredient> = run {
+        setFrom(ingredients, ingredients.flatMap { it.allIngredients })
     }
 }

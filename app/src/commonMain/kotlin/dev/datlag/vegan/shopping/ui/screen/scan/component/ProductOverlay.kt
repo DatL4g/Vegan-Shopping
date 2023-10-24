@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -28,22 +27,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import com.moriatsushi.insetsx.safeDrawingPadding
 import dev.datlag.vegan.shopping.SharedRes
-import dev.datlag.vegan.shopping.common.foodTypeDisplayIcon
-import dev.datlag.vegan.shopping.common.foodTypeDisplayText
 import dev.datlag.vegan.shopping.common.ingredientTypeDisplayIcon
 import dev.datlag.vegan.shopping.common.ingredientTypeDisplayText
-import dev.datlag.vegan.shopping.common.ingredientTypeIsGreen
-import dev.datlag.vegan.shopping.common.ingredientTypeIsRed
 import dev.datlag.vegan.shopping.common.onClick
-import dev.datlag.vegan.shopping.common.rememberComposable
-import dev.datlag.vegan.shopping.model.FoodType
 import dev.datlag.vegan.shopping.model.openfoodfacts.Product
 import dev.datlag.vegan.shopping.ui.theme.CutOutShape
 import dev.icerock.moko.resources.compose.stringResource
@@ -58,6 +50,7 @@ fun ProductOverlay(
     isBookmarked: Boolean,
     onClose: () -> Unit,
     onBookmark: () -> Unit,
+    onType: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
@@ -177,10 +170,10 @@ fun ProductOverlay(
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val (containerColor, contentColor) = if (ingredientTypeIsGreen(product.type)) {
+                        val (containerColor, contentColor) = if (product.type.isVeganOrVegetarian) {
                             MaterialTheme.colorScheme.secondary to MaterialTheme.colorScheme.onSecondary
                         } else {
-                            if (ingredientTypeIsRed(product.type)) {
+                            if (product.type.isOmnivore) {
                                 MaterialTheme.colorScheme.error to MaterialTheme.colorScheme.onError
                             } else {
                                 cutoutContainerContentColor to cutoutContainerColor.copy(alpha = 1F)
@@ -193,6 +186,9 @@ fun ProductOverlay(
                             modifier = Modifier
                                 .size(min(ButtonDefaults.MinWidth, ButtonDefaults.MinHeight))
                                 .clip(cutoutContainerShape)
+                                .onClick {
+                                    onType()
+                                }
                         ) {
                             Icon(
                                 imageVector = ingredientTypeDisplayIcon(product.type),

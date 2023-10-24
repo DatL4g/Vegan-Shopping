@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import dev.datlag.vegan.shopping.common.lifecycle.collectAsStateWithLifecycle
 import dev.datlag.vegan.shopping.model.state.OFFRequest
+import dev.datlag.vegan.shopping.ui.screen.scan.DialogConfig
 import dev.datlag.vegan.shopping.ui.screen.scan.ScanComponent
 
 @Composable
@@ -47,6 +48,9 @@ fun ProductInfo(component: ScanComponent, modifier: Modifier = Modifier.fillMaxS
                 },
                 onBookmark = {
                     bookmark = true
+                },
+                onType = {
+                    component.showDialog(DialogConfig.ProductType(product))
                 },
                 modifier = modifier
             ) {
