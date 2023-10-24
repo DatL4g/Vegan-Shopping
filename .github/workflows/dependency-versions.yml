@@ -28,7 +28,8 @@ jobs:
 
       - name: Read Report File
         id: dependencyVersion
-        run: echo "summary=$(cat build/dependencyUpdates/report.md)" >> $GITHUB_OUTPUT
+        run: ls -l; echo "summary=$(cat build/dependencyUpdates/report.md)" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.workspace }}
 
       - name: Publish version results
         env:
