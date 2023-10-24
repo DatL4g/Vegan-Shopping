@@ -26,16 +26,9 @@ jobs:
       - name: Check Dependency Versions
         run: ./gradlew dependencyUpdates
 
-      - name: Read Report File
-        id: dependencyVersion
-        run: ls -l; echo "summary=$(cat build/dependencyUpdates/report.md)" >> $GITHUB_OUTPUT
-        working-directory: ${{ github.workspace }}
-
       - name: Publish version results
-        uses: LouisBrunner/checks-action@v1.6.1
+        uses: dtinth/markdown-report-action@v1
         with:
-          token: ${{ github.token }}
           name: Version Results
-          conclusion: ${{ job.status }}
-          output: |
-            {"title":"${{ github.event.repository.updated_at }}", "summary":"${{ steps.dependencyVersion.outputs.summary }}"}
+          title: ${{ github.event.repository.updated_at }}
+          body-file: build/dependencyUpdates/report.md
