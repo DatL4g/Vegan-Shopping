@@ -1,0 +1,30 @@
+name: Check Dependency Versions
+on:
+  push:
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Check Dependency Versions
+        run: ./gradlew dependencyUpdates
+
+      - name: Publish version results
+        uses: dtinth/markdown-report-action@v1
+        with:
+          name: Version Results
+          title: ${{ github.event.repository.updated_at }}
+          body-file: /build/dependencyUpdates/report.md
