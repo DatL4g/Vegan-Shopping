@@ -26,9 +26,17 @@ jobs:
       - name: Check Dependency Versions
         run: ./gradlew dependencyUpdates
 
+      - name: Read Report File
+        id: dependencyVersion
+        run: echo "summary=$(cat build/dependencyUpdates/report.md)" >> $GITHUB_OUTPUT
+
       - name: Publish version results
-        uses: dtinth/markdown-report-action@v1
-        with:
-          name: Version Results
-          title: ${{ github.event.repository.updated_at }}
-          body-file: build/dependencyUpdates/report.md
+        run: |
+          gh api -X POST -H "Accept: application/vnd.github+json" \
+          -f 'name: Version Results' \
+          -f 'head_sha=${{ github.event.pull_request.head.sha }}' \
+          -f 'status=completed' \
+          -f 'conclusion=neutral' \
+          -f 'output[title]=${{ github.event.repository.updated_at }}'
+          -f 'output[summary]=${{ steps.dependencyVersion.outputs.summary }}'
+          /repos/${{ github.repository }}/check-runs
