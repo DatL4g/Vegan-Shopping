@@ -95,6 +95,9 @@ tasks.withType<DependencyUpdatesTask> {
             }
         }
         val outputFile = layout.buildDirectory.file("dependencyUpdates/report.md").get().asFile
+        println("Report file: ${outputFile.name}")
+        println("Report file path: ${outputFile.path}")
+        println("Report file absolute path: ${outputFile.path}")
         try {
             if (outputFile.exists()) {
                 outputFile.delete()
