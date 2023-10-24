@@ -1,3 +1,5 @@
+@file:Suppress("MISSING_DEPENDENCY_CLASS", "MISSING_DEPENDENCY_SUPERCLASS")
+
 package dev.datlag.vegan.shopping.common
 
 import androidx.compose.runtime.Composable

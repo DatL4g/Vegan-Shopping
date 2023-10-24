@@ -1,3 +1,5 @@
+@file:Suppress("MISSING_DEPENDENCY_CLASS", "MISSING_DEPENDENCY_SUPERCLASS")
+
 package dev.datlag.vegan.shopping.ui.screen.scan.component
 
 import androidx.compose.foundation.background
